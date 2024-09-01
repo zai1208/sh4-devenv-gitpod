@@ -26,26 +26,26 @@ RUN apt-get -y install build-essential libmpfr-dev libmpc-dev libgmp-dev libpng-
 RUN mkdir /opt/cross/
 WORKDIR /opt/cross/
 
-RUN curl -L http://ftpmirror.gnu.org/binutils/binutils-2.34.tar.bz2 | tar xj
+RUN curl -L http://ftpmirror.gnu.org/binutils/binutils-2.35.tar.bz2 | tar xj
 RUN mkdir binutils-build
 WORKDIR /opt/cross/binutils-build
 # --prefix=$prefix
-RUN ../binutils-2.34/configure --target=${TARGET} --prefix=${PREFIX} --disable-nls \
+RUN ../binutils-2.35/configure --target=${TARGET} --prefix=${PREFIX} --disable-nls \
         -disable-shared --disable-multilib
 RUN make -j$(nproc)
 RUN make install
 
 # cleaning up
-RUN rm -rf /opt/cross/binutils-2.34
+RUN rm -rf /opt/cross/binutils-2.35
 # RUN rm -rf /opt/cross/binutils-build
 
 # FROM binutils AS gcc
 WORKDIR /opt/cross/
-RUN curl -L http://ftpmirror.gnu.org/gcc/gcc-10.1.0/gcc-10.1.0.tar.xz | tar xJ
+RUN curl -L http://ftpmirror.gnu.org/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz | tar xJ
 RUN mkdir /opt/cross/gcc-build
 WORKDIR /opt/cross/gcc-build
 # --prefix=$prefix
-RUN ../gcc-10.1.0/configure --target=${TARGET} --prefix=${PREFIX} \ 
+RUN ../gcc-10.2.0/configure --target=${TARGET} --prefix=${PREFIX} \ 
         --enable-languages=c,c++ \
 		--with-newlib --without-headers --disable-hosted-libstdcxx \
         --disable-tls --disable-nls --disable-threads --disable-shared \
@@ -58,12 +58,12 @@ RUN make -j$(nproc) inhibit_libc=true all-target-libgcc
 RUN make install-target-libgcc
 
 # cleaning up
-RUN rm -rf /opt/cross/gcc-10.1.0
+RUN rm -rf /opt/cross/gcc-10.2.0
 # RUN rm -rf /opt/cross/gcc-build
 
 # Clone and make NewLib
 
-ENV NEWLIB_VER "1.14.0"
+ENV NEWLIB_VER "4.2.0.20211231"
 ENV TARGET_BINS ${TARGET}
 
 # FROM gcc AS newlib
