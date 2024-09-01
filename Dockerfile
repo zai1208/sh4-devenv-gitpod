@@ -68,7 +68,7 @@ ENV TARGET_BINS ${TARGET}
 
 # FROM gcc AS newlib
 WORKDIR /opt/cross/
-RUN curl http://sourceware.org/pub/newlib/newlib-${NEWLIB_VER}.tar.gz -o newlib-${NEWLIB_VER}.tar.gz 
+RUN curl ftp://sourceware.org/pub/newlib/newlib-${NEWLIB_VER}.tar.gz -O
 RUN tar xzf newlib-${NEWLIB_VER}.tar.gz
 RUN rm -rf newlib-${NEWLIB_VER}.tar.gz
 
