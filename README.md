@@ -2,7 +2,7 @@
 testing some full devenv with docker
 
 ## Usage
-`docker pull pho3be/sh4devenvgitpod`
+`docker pull ghcr.io/zai1208/sh4-devenv-gitpod`
 
 Once in, you'll be logged as "dev" user. You can there clone your repo and build it using make.
 `sh4-elf-gcc` and `sh4eb-nofpu-elf-gcc` are included, along side with the HHK SDK (in /opt/cross) 
